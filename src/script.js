@@ -165,3 +165,35 @@ if (btnFinalizar) {
     cartModal.classList.add('hidden');
   });
 }
+
+document.getElementById('contact-form').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const formData = {
+    nome: document.getElementById('name').value.trim(),
+    telefone: document.getElementById('phone')?.value.trim() || '',
+    cpf: document.getElementById('cpf')?.value.trim() || '',
+    tipo_exame: document.getElementById('exam-type')?.value || '',
+    data_agendamento: document.getElementById('selected-date')?.value || '',
+    mensagem: document.getElementById('message')?.value.trim() || ''
+  };
+
+  try {
+    const response = await fetch('salvar_agendamento.php', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(formData)
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      alert("Agendamento salvo!");
+      document.getElementById('contact-form').reset();
+    } else {
+      alert("Erro ao agendar.");
+    }
+  } catch (error) {
+    console.error('Erro:', error);
+    alert("Houve um problema ao enviar o formulário.");
+  }
+});
