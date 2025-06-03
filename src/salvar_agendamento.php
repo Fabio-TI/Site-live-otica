@@ -2,10 +2,16 @@
 header('Content-Type: application/json');
 
 // Configuração do banco de dados
-$host = 'mysql'; // Nome do serviço MySQL no Docker
-$dbname = 'liveotica';
-$username = 'root';
-$password = 'root';
+$host = getenv('DB_HOST') ?: 'mysql';
+$user = getenv('DB_USER') ?: 'root';
+$password = getenv('DB_PASSWORD') ?: 'root';
+$dbname = getenv('DB_NAME') ?: 'liveotica';
+
+$conn = new mysqli($host, $user, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Erro na conexão: " . $conn->connect_error);
+}
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
