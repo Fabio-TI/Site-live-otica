@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Live Ótica - Sua visão em primeiro lugar</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/> 
+</head>
+<body class="bg-white text-gray-900">
+
+  <!-- Header -->
+  <header class="bg-blue-600 text-white p-4 shadow-md sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold">Live Ótica</h1>
+
+      <!-- Botão do Menu Mobile -->
+      <button id="mobile-menu-button" class="md:hidden text-white">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Navegação -->
+      <nav id="mobile-menu" class="hidden md:flex space-x-6 items-center">
+        <!-- Botão do Carrinho -->
+        <button id="open-cart" class="relative ml-4">
+          <i class="fas fa-shopping-cart text-xl"></i>
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+        </button>
+        <a href="#home" class="block py-2 hover:text-blue-200">Início</a>
+        <a href="#about" class="block py-2 hover:text-blue-200">Quem Somos</a>
+        <a href="#produtos" class="block py-2 hover:text-blue-200">Produtos</a>
+        <a href="#contact" class="block py-2 hover:text-blue-200">Contato</a>
+
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero h-screen flex items-center justify-center text-black text-center bg-blue-600" style="background-image: url('assets/imagens/lifeFoto.jpg')">
+    <div class="max-w-2xl mx-auto px-4">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">Sua visão em primeiro lugar</h2>
+      <p class="text-lg md:text-xl font-bold mb-6">As melhores armações e lentes com qualidade e preço justo</p>
+      <a href="#produtos" class="inline-block bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-full transition duration-300">Ver Produtos</a>
+    </div>
+  </section>
+
+    <!-- About Section -->
+  <section id="about" class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center gap-8">
+        <div class="md:w-1/2">
+          <img src="assets/imagens/fundo-hero.jpg" alt="Nossa Ótica" class="rounded-lg shadow-md w-full">
+        </div>
+        <div class="md:w-1/2">
+          <h2 class="text-3xl font-bold mb-4">Sobre Nós</h2>
+          <p class="text-gray-700 mb-4">
+            Fundada em 2010, a Live Ótica nasceu com o propósito de oferecer aos nossos clientes não apenas produtos de qualidade, mas uma experiência completa de cuidado com a visão.
+          </p>
+          <p class="text-gray-700 mb-6">
+            Com CNPJ 55.499.947/0001-80 e sede em liveotica.com.br, nos tornamos referência no mercado óptico pela nossa excelência no atendimento e compromisso com a satisfação do cliente.
+          </p>
+
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <i class="fas fa-check-circle text-blue-600 mt-1 mr-3"></i>
+              <div>
+                <h4 class="font-bold text-gray-800">Missão</h4>
+                <p class="text-gray-700">Proporcionar saúde visual com produtos de qualidade e atendimento personalizado.</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <i class="fas fa-check-circle text-blue-600 mt-1 mr-3"></i>
+              <div>
+                <h4 class="font-bold text-gray-800">Visão</h4>
+                <p class="text-gray-700">Ser reconhecida como a melhor opção em ótica pela qualidade e inovação.</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <i class="fas fa-check-circle text-blue-600 mt-1 mr-3"></i>
+              <div>
+                <h4 class="font-bold text-gray-800">Valores</h4>
+                <p class="text-gray-700">Ética, transparência, comprometimento e respeito ao cliente.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-4 right-4 bg-green-600 text-white px-4 py-2 rounded shadow-lg hidden z-50 transition-all duration-300">Produto adicionado!</div>
+
+  <!-- Modal do Carrinho -->
+  <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-md rounded-lg shadow-lg p-6 max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-xl font-bold">Seu Carrinho</h3>
+        <button id="close-cart" class="text-gray-500 hover:text-gray-700 text-xl">×</button>
+      </div>
+      <div id="empty-cart-message" class="text-center py-8 text-gray-500">Seu carrinho está vazio</div>
+      <div id="cart-items" class="space-y-4"></div>
+      <div id="cart-summary" class="mt-6 hidden">
+        <hr class="my-2">
+        <div class="flex justify-between mb-2">
+          <span>Subtotal:</span><span id="cart-subtotal">R$ 0,00</span>
+        </div>
+        <div class="flex justify-between mb-4">
+          <span>Frete:</span><span>Grátis</span>
+        </div>
+        <div class="flex justify-between text-lg font-bold mb-6">
+          <span>Total:</span><span id="cart-total">R$ 0,00</span>
+        </div>
+        <div class="flex justify-end gap-4">
+          <button onclick="limparCarrinho()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Limpar Carrinho</button>
+          <button id="btn-finalizar" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Finalizar Compra</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seção Produtos -->
+  <section id="produtos" class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-8">Nossos Produtos</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+
+        <!-- Produto 1 -->
+        <div class="product-card bg-white rounded shadow-md overflow-hidden transition duration-300">
+          <img src="assets/imagens/óculos_acetato1.webp" alt="Óculos Moderno" class="w-full h-64 object-cover">
+          <div class="p-4">
+            <h3 class="font-bold text-lg mb-1">Óculos Moderno</h3>
+            <p class="text-gray-600 text-sm mb-3">Armação em acetato com lentes anti-reflexo</p>
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-blue-600">R$ 349,90</span>
+              <button class="add-to-cart bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm transition" data-id="1" data-name="Óculos Moderno" data-price="349.90">
+                <i class="fas fa-cart-plus mr-1"></i> Comprar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Produto 2 -->
+        <div class="product-card bg-white rounded shadow-md overflow-hidden transition duration-300">
+          <img src="assets/imagens/óculos_de_sol1.webp" alt="Óculos de Sol Premium" class="w-full h-64 object-cover">
+          <div class="p-4">
+            <h3 class="font-bold text-lg mb-1">Óculos de Sol</h3>
+            <p class="text-gray-600 text-sm mb-3">Proteção UV400 e armação em metal</p>
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-blue-600">R$ 289,90</span>
+              <button class="add-to-cart bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm transition" data-id="2" data-name="Óculos de Sol" data-price="289.90">
+                <i class="fas fa-cart-plus mr-1"></i> Comprar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Produto 3 -->
+        <div class="product-card bg-white rounded shadow-md overflow-hidden transition duration-300">
+          <img src="assets/imagens/Estojo1.jpg" alt="Estojo Premium" class="w-full h-64 object-cover">
+          <div class="p-4">
+            <h3 class="font-bold text-lg mb-1">Estojo Premium</h3>
+            <p class="text-gray-600 text-sm mb-3">Proteção resistente para seus óculos</p>
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-blue-600">R$ 59,90</span>
+              <button class="add-to-cart bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm transition" data-id="3" data-name="Estojo Premium" data-price="59.90">
+                <i class="fas fa-cart-plus mr-1"></i> Comprar
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Formulário de Agendamento -->
+  <section id="contact" class="py-12 bg-gray-100">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold text-center mb-8">Agende seu Exame</h2>
+      <form id="contact-form" class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+        <div class="mb-4">
+          <label for="name" class="block text-gray-700 font-medium mb-2">Nome Completo</label>
+          <input type="text" id="name" name="nome" required class="w-full border border-gray-300 rounded px-3 py-2">
+        </div>
+        <div class="mb-4">
+          <label for="phone" class="block text-gray-700 font-medium mb-2">Telefone</label>
+          <input type="text" id="phone" name="telefone" placeholder="(00) 00000-0000" class="w-full border border-gray-300 rounded px-3 py-2">
+        </div>
+        <div class="mb-4">
+          <label for="cpf" class="block text-gray-700 font-medium mb-2">CPF</label>
+          <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" class="w-full border border-gray-300 rounded px-3 py-2">
+        </div>
+        <div class="mb-4">
+          <label for="exam-type" class="block text-gray-700 font-medium mb-2">Tipo de Exame</label>
+          <select id="exam-type" name="tipo_exame" class="w-full border border-gray-300 rounded px-3 py-2">
+            <option value="">Selecione</option>
+            <option value="refração">Refração Visual</option>
+            <option value="rotina">Exame de Rotina</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <label for="selected-date" class="block text-gray-700 font-medium mb-2">Data Desejada</label>
+          <input type="date" id="selected-date" name="data_agendamento" class="w-full border border-gray-300 rounded px-3 py-2">
+        </div>
+        <div class="mb-4">
+          <label for="message" class="block text-gray-700 font-medium mb-2">Mensagem (opcional)</label>
+          <textarea id="message" name="mensagem" rows="4" class="w-full border border-gray-300 rounded px-3 py-2"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Enviar</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer class="bg-white py-6 text-center text-gray-600">
+    <p>&copy; 2025 Live Ótica. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+  <script>
+    // Função para mostrar toast
+    function mostrarToast(mensagem) {
+      const toast = document.getElementById('toast');
+      toast.textContent = mensagem;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 2500);
+    }
+
+    // Capturar cliques nos botões "add-to-cart"
+    document.addEventListener('click', function (e) {
+      const botao = e.target.closest('.add-to-cart');
+      if (botao) {
+        const product = {
+          id: botao.dataset.id,
+          name: botao.dataset.name,
+          price: parseFloat(botao.dataset.price),
+          image: botao.dataset.image || '',
+          quantity: 1
+        };
+        adicionarAoCarrinho(product);
+        mostrarToast("Produto adicionado ao carrinho!");
+        abrirModalCarrinho();
+      }
+    });
+
+    // Abrir modal do carrinho
+    function abrirModalCarrinho() {
+      const cartModal = document.getElementById('cart-modal');
+      if (cartModal) {
+        cartModal.classList.remove('hidden');
+      }
+    }
+
+    // Fechar modal do carrinho
+    document.getElementById('close-cart')?.addEventListener('click', () => {
+      document.getElementById('cart-modal').classList.add('hidden');
+    });
+
+    // Finalizar compra simulado
+    document.getElementById('btn-finalizar')?.addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert("Seu carrinho está vazio!");
+        return;
+      }
+      alert("Compra finalizada com sucesso!");
+      cart = [];
+      updateCart();
+      document.getElementById('cart-modal').classList.add('hidden');
+    });
+
+    // Limpar carrinho
+    window.limparCarrinho = function() {
+      cart = [];
+      updateCart();
+    };
+
+    // Máscara de CPF
+    document.getElementById('cpf')?.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '').substring(0, 11);
+      if (value.length > 9) {
+        value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
+      } else if (value.length > 6) {
+        value = value.replace(/^(\d{3})(\d{3})(\d{0,3})$/, "$1.$2.$3");
+      } else if (value.length > 3) {
+        value = value.replace(/^(\d{3})(\d{0,3})$/, "$1.$2");
+      }
+      e.target.value = value;
+    });
+
+    // Máscara de Telefone
+    document.getElementById('phone')?.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length > 10) {
+        value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, "($1) $2-$3");
+      } else {
+        value = value.replace(/^(\d{2})(\d{4})(\d{0,4})$/, "($1) $2$3").substr(0, 14);
+      }
+      e.target.value = value;
+    });
+  </script>
+  <!-- Rodapé -->
+  <footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4 flex items-center">
+            <i class="fas fa-glasses text-blue-400 mr-2"></i> Live Ótica
+          </h3>
+          <p class="text-gray-400">CNPJ: 55.499.947/0001-80</p>
+          <p class="text-gray-400 mt-2">Sua visão em primeiro lugar desde 2010.</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4">Links Rápidos</h4>
+          <ul class="space-y-2">
+            <li><a href="#home" class="text-gray-400 hover:text-white">Home</a></li>
+            <li><a href="#about" class="text-gray-400 hover:text-white">Quem Somos</a></li>
+            <li><a href="#products" class="text-gray-400 hover:text-white">Produtos</a></li>
+            <li><a href="#contact" class="text-gray-400 hover:text-white">Contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4">Horário de Atendimento</h4>
+          <p class="text-gray-400">Segunda a sexta: 9h às 18h<br>Sábado: 9h às 13h</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-bold mb-4">Newsletter</h4>
+          <p class="text-gray-400 mb-4">Receba promoções e novidades por email</p>
+          <form class="flex">
+            <input type="email" placeholder="Seu email" class="px-3 py-2 text-gray-800 rounded-l focus:outline-none w-full">
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-r">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2025 Live Ótica. Todos os direitos reservados.</p>
+      </div>
+    </div>
+
+  </footer>
+
+</body>
+</html>

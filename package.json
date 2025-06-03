@@ -1,0 +1,18 @@
+{
+  "name": "liveotica",
+  "version": "1.0.0",
+  "description": "Site da Live Ótica",
+  "main": "index.js",
+  "scripts": {
+    "build": "tailwindcss -i ./src/css/input.css -o ./src/style.css --minify",
+    "watch": "tailwindcss -i ./src/css/input.css -o ./src/style.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.4",
+    "tailwindcss": "^3.4.17"
+  }
+}
