@@ -14,14 +14,14 @@ RUN apt-get update && \
 # Ativar mod_rewrite para URLs amigáveis
 RUN a2enmod rewrite
 
-# Configurar diretório de trabalho
-WORKDIR /var/www/html
+# Garantir que o diretório HTML exista
+RUN mkdir -p /var/www/html
 
-# Copiar arquivos para o container
-COPY . /var/www/html/
+# Copiar apenas a pasta src/ para o diretório correto
+COPY ./src /var/www/html/
+
+# Configurar permissões
+RUN chown -R www-data:www-data /var/www/html
 
 # Expor porta 80
 EXPOSE 80
-
-# Instalar extensões PHP
-RUN docker-php-ext-install pdo_mysql mysqli mbstring exif gd
