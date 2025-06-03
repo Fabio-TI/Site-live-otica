@@ -9,8 +9,7 @@ RUN apt-get update && \
         libfreetype-dev \
         unzip \
         git \
-        libonig-dev \
-        oniguruma-dev
+        libonig-dev
 
 # Ativar mod_rewrite para URLs amigáveis
 RUN a2enmod rewrite
@@ -19,7 +18,7 @@ RUN a2enmod rewrite
 WORKDIR /var/www/html
 
 # Copiar arquivos para o container
-COPY ./src/ /var/www/html/
+COPY . /var/www/html/
 
 # Expor porta 80
 EXPOSE 80
