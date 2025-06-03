@@ -181,7 +181,7 @@ document.getElementById('contact-form').addEventListener('submit', async functio
   try {
     const response = await fetch('salvar_agendamento.php', {
       method: 'POST',
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
     });
 
@@ -190,10 +190,10 @@ document.getElementById('contact-form').addEventListener('submit', async functio
       alert("Agendamento salvo!");
       document.getElementById('contact-form').reset();
     } else {
-      alert("Erro ao agendar.");
+      alert(`Erro ao agendar: ${result.error}`);
     }
   } catch (error) {
     console.error('Erro:', error);
-    alert("Houve um problema ao enviar o formulário.");
+    alert("Houve um erro ao enviar o formulário.");
   }
 });

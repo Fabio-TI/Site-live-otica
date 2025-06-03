@@ -18,7 +18,6 @@ $password = isset($parts['pass']) ? $parts['pass'] : '';
 $dbname = ltrim($parts['path'], '/');
 
 try {
-    // Conecta ao banco de dados usando as credenciais extraídas
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -35,18 +34,16 @@ try {
     // Prepara a inserção no banco
     $stmt = $pdo->prepare("INSERT INTO agendamentos (
         nome, telefone, cpf, tipo_exame, data_agendamento, mensagem
-    ) VALUES (
-        :nome, :telefone, :cpf, :tipo_exame, :data_agendamento, :mensagem
-    )");
+    ) VALUES (?, ?, ?, ?, ?, ?)");
 
     // Executa a inserção
     $stmt->execute([
-        ':nome' => $data['nome'],
-        ':telefone' => $data['telefone'] ?? null,
-        ':cpf' => $data['cpf'] ?? null,
-        ':tipo_exame' => $data['tipo_exame'] ?? null,
-        ':data_agendamento' => $data['data_agendamento'] ?? null,
-        ':mensagem' => $data['mensagem'] ?? null
+        $data['nome'],
+        $data['telefone'] ?? null,
+        $data['cpf'] ?? null,
+        $data['tipo_exame'] ?? null,
+        $data['data_agendamento'] ?? null,
+        $data['mensagem'] ?? null
     ]);
 
     // Resposta de sucesso
