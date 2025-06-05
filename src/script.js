@@ -61,7 +61,7 @@ function updateCart() {
         <span>${item.name} (x${item.quantity})</span>
         <div class="flex gap-2">
           <button data-id="${item.id}" class="decrease-quantity text-red-500 hover:text-red-700">-</button>
-          <span>R$ ${(item.price * item.quantity).toFixed(1)}</span>
+          <span>R$ ${(item.price * item.quantity).toFixed(2)}</span>
           <button data-id="${item.id}" class="increase-quantity text-green-500 hover:text-green-700">+</button>
           <button data-id="${item.id}" class="remove-item text-gray-400 hover:text-gray-600 ml-3">×</button>
         </div>
@@ -70,12 +70,12 @@ function updateCart() {
     });
 
     cartCount.textContent = cart.reduce((acc, item) => acc + item.quantity, 0);
-    cartSubtotal.textContent = `R$ ${subtotal.toFixed(1)}`;
-    cartTotal.textContent = `R$ ${subtotal.toFixed(1)}`;
+    cartSubtotal.textContent = `R$ ${subtotal.toFixed(2)}`;
+    cartTotal.textContent = `R$ ${subtotal.toFixed(2)}`;
   }
 }
 
-// Eventos dos cards de produto
+// Evento dos cards de produto
 document.addEventListener('click', function (e) {
   const botao = e.target.closest('.add-to-cart');
   if (botao) {
@@ -91,10 +91,8 @@ document.addEventListener('click', function (e) {
 });
 
 // Eventos dos botões dentro do carrinho (+, -, ×)
-document.getElementById('cart-items')?.addEventListener('click', function (e) {
+document.addEventListener('click', function (e) {
   const target = e.target;
-
-  if (!target) return;
 
   const id = target.dataset.id;
 
@@ -166,7 +164,8 @@ if (btnFinalizar) {
   });
 }
 
-document.getElementById('contact-form').addEventListener('submit', async function (e) {
+// Formulário de Agendamento
+document.getElementById('contact-form')?.addEventListener('submit', async function (e) {
   e.preventDefault();
 
   const formData = {
@@ -194,6 +193,6 @@ document.getElementById('contact-form').addEventListener('submit', async functio
     }
   } catch (error) {
     console.error('Erro:', error);
-    alert("Houve um erro ao enviar o formulário.");
+    alert("Houve um problema ao enviar o formulário.");
   }
 });
